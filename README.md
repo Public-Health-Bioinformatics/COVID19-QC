@@ -1,6 +1,6 @@
 # COVID19-QC
 
-## Download reference sequences from NCBI
+### Download reference sequences from NCBI
 
 
-## Download SRA data from NCBI
+### Download SRA data from NCBI
