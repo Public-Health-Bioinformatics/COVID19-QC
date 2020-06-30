@@ -1,5 +1,7 @@
 # COVID19-QC
 
+## Obtain data
+
 ### Download reference sequences from NCBI
 
 
