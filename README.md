@@ -2,10 +2,10 @@
 
 ## Obtain data
 
-### Download reference sequences from NCBI
+- Download reference sequences from NCBI
 
 
-### Download SRA data from NCBI
+- Download SRA data from NCBI
 
 
-## Obtain Metadata
+- Obtain Metadata
