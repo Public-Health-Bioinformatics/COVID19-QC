@@ -4,13 +4,37 @@ import pandas as pd
 from pysradb.sraweb import SRAweb
 import numpy as np
 
+def filter_previous_run(df):
+    """
+    This method filters datasets based on 3 criteria (host, library
+    strategy and sequencing instrument) with defined values below. If
+    required, one can change the values of each below.
+    :param dataframe with detailed metadata for each SRA study - df:
+    :return cleaned metadata dataframe - metadata_cleaned:
+    """
+    # Reading the previous version of COVID-19 (07 July, 2020)
+    prev_accs = pd.read_csv("COVID_SRA_07July.csv")
+
+    # Finding the common between both
+    common = df.merge(prev_accs, on=["sra_study"])
+    studies = [x for x in common['sra_study'].unique().tolist() if x
+               not in
+               prev_accs['sra_study'].unique().tolist()]
+    # Reading the previous version of COVID-19 (07 July, 2020)
+    return studies
 
 def filter_metadata(df):
+    """
+    This method filters datasets based on 3 criteria (host, library
+    strategy and sequencing instrument) with defined values below. If
+    required, one can change the values of each below.
+    :param dataframe with detailed metadata for each SRA study - df:
+    :return cleaned metadata dataframe - metadata_cleaned:
+    """
+    # Reading the previous version of COVID-19 (07 July, 2020)
     metadata_unique = df.drop_duplicates(subset='study_accession',
                                          keep="last")
     hosts = ['human', 'homo sapiens']
-    # organism = ['coronavirus', 'cov2', 'covid', 'corona', '2019-nCoV',
-    #            'SARS-CoV-2', 'nCov']
     instrument = ['Illumina MiSeq', 'Illumina iSeq 100',
                   'Illumina NovaSeq 6000', 'Illumina HiSeq 2500',
                   'NextSeq 500', 'NextSeq 550']
@@ -21,24 +45,16 @@ def filter_metadata(df):
         'AMPLICON', case=False, na=False)) & (metadata_unique[
         'instrument'].str.contains(
         '|'.join(instrument), case=False, na=False)))]
-    # Getting the SRA run IDS back
+
+    # Reading the previous version of COVID-19 (07 July, 2020)
     metadata_cleaned = df[df['study_accession'].isin(
         filtered_metadata.study_accession)]
 
+    # Reading the previous version of COVID-19 (07 July, 2020)
     return metadata_cleaned
 
 
-def filter_previous_run(df):
-    # Reading the previous version of COVID-19 (07 July, 2020)
-    prev_accs = pd.read_csv("COVID_SRA_07July.csv")
 
-    # Finding the common between both
-    common = df.merge(prev_accs, on=["sra_study"])
-    studies = [x for x in common['sra_study'].unique().tolist() if x
-               not in
-               prev_accs['sra_study'].unique().tolist()]
-
-    return studies
 
 
 # Connecting SRAweb with
