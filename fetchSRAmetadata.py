@@ -14,7 +14,7 @@ def filter_previous_run(df):
     :return list of new ids to be fetched - studies:
     """
     # Reading the previous version of COVID-19 (07 July, 2020)
-    prev_accs = pd.read_csv("COVID_SRA_07July.csv")
+    prev_accs = pd.read_csv("Coronaviridae_runs_20200707.csv")
 
     # Finding the common between both
     common = df.merge(prev_accs, on=["sra_study"])
@@ -60,7 +60,7 @@ def filter_metadata(df):
 db = SRAweb()
 
 # Reading the most recent file of COVID-19 (03 November, 2020)
-SRA = pd.read_csv("~/Downloads/Coronaviridae_runs_head.csv")
+SRA = pd.read_csv("Coronaviridae_runs_20201103.csv")
 
 # Flag for if a previously fetched fie exists. Set 'previous_flag' = 1
 # if previous version exists to run the function - filter_previous_run
